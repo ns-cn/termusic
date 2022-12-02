@@ -2,6 +2,7 @@ package api
 
 import (
 	"fmt"
+	"net/url"
 	"termusic/api/model"
 )
 
@@ -11,7 +12,7 @@ const (
 )
 
 func SearchSong(keyword string, offset int64) (model.SearchResponse, error) {
-	requestUrl := fmt.Sprintf(API+"/cloudsearch?keywords=%s&type=%d&offset=%d", keyword, SEARCH_SONG, offset)
+	requestUrl := fmt.Sprintf(API+"/cloudsearch?keywords=%s&type=%d&offset=%d", url.QueryEscape(keyword), SEARCH_SONG, offset)
 	var data model.SearchResponse
 	err := Get(requestUrl, &data)
 	return data, err
